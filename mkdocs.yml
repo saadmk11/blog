@@ -3,7 +3,7 @@ docs_dir: blog
 theme:
   name: material
   features:
-#    - navigation.tabs
+    - navigation.tabs
     - search.suggest
     - search.highlight
     - search.share
