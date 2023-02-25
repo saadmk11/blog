@@ -1,5 +1,7 @@
 site_name: Maksudul Haque's Blog
+site_url: https://saadmk11.github.io/blog/
 docs_dir: blog
+
 theme:
   name: material
   features:
