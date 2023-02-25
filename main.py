@@ -2,7 +2,7 @@ from mkdocs.utils import meta
 
 def define_env(env):
     @env.macro
-    def recent_posts(pages):
+    def recent_posts(pages, limit=None):
         posts = []
         for page in pages:
             with open(page.file.abs_src_path, "r") as f:
@@ -12,4 +12,7 @@ def define_env(env):
                     posts.append(metadata)
 
         posts.sort(key=lambda x: x["date"], reverse=True)
-        return posts[:6]
+
+        if limit:
+            posts = posts[:limit]
+        return posts

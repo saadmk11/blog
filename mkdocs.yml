@@ -8,6 +8,9 @@ theme:
     - search.highlight
     - search.share
     - navigation.indexes
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
   icon:
     logo: fontawesome/solid/book
   palette:
@@ -33,3 +36,26 @@ plugins:
       tags_file: tags.md
   - search
   - macros
+  - social
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/saad_mk11
+    - icon: fontawesome/brands/github
+      link: https://github.com/saadmk11
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/saadmk11/
+    - icon: fontawesome/solid/globe
+      link: https://saadmk11.github.io
+    - icon: fontawesome/brands/dev
+      link: https://dev.to/saadmk11
