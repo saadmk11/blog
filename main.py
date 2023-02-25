@@ -8,7 +8,7 @@ def define_env(env):
             with open(page.file.abs_src_path, "r") as f:
                 _, metadata = meta.get_data(f.read())
                 if metadata.get('type') == 'post':
-                    metadata['url'] = page.file.url
+                    metadata['url'] = page.url
                     posts.append(metadata)
 
         posts.sort(key=lambda x: x["date"], reverse=True)
