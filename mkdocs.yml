@@ -48,6 +48,9 @@ markdown_extensions:
   - pymdownx.superfences
 
 extra:
+  analytics:
+    provider: google
+    property: G-MZDZ15E66V
   social:
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/saad_mk11
