@@ -1,5 +1,6 @@
 from mkdocs.utils import meta
 
+
 def define_env(env):
     @env.macro
     def recent_posts(pages, limit=None):
@@ -7,8 +8,8 @@ def define_env(env):
         for page in pages:
             with open(page.file.abs_src_path, "r") as f:
                 _, metadata = meta.get_data(f.read())
-                if metadata.get('type') == 'post':
-                    metadata['url'] = page.url
+                if metadata.get("type") == "post":
+                    metadata["url"] = page.url
                     posts.append(metadata)
 
         posts.sort(key=lambda x: x["date"], reverse=True)
