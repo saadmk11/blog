@@ -2,17 +2,19 @@
 date: 2023-03-05
 description: An example of Django PostgreSQL Database Connection Pooling with PgBouncer
 hide:
-- navigation
+  - navigation
 tags:
-- python
-- django
-- postgresql
-- docker
-- pgbouncer
-- tutorial
+  - python
+  - django
+  - postgresql
+  - docker
+  - pgbouncer
+  - tutorial
 title: Django Database Connection Pooling with PgBouncer
 type: post
-ignore_macros: true
+render_macros: false
+authors:
+  - maksudul
 ---
 
 # Django PostgreSQL Database Connection Pooling with PgBouncer <br><small>March 5, 2023</small>
@@ -20,6 +22,8 @@ ignore_macros: true
 ## Introduction
 
 In this post, we will learn how to use PostgreSQL database connection pooling with PgBouncer for Django applications.
+
+<!-- more -->
 
 #### What is database connection pooling?
 
@@ -430,7 +434,7 @@ version: '3.9'
 services:
   web:
     build:
-      context: . 
+      context: .
     volumes:
       - .:/app
     env_file:

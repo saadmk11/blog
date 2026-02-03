@@ -1,20 +1,43 @@
-site_name: Maksudul Haque's Blog
-site_url: https://saadmk11.github.io/blog/
-docs_dir: blog
+site_name: Maksudul's Blog
+site_url: https://blog.maksudul.bd
+site_author: Maksudul Haque
+site_description: Personal blog of Maksudul Haque on programming, technology, and more.
+repo_name: saadmk11/blog
+repo_url: https://github.com/saadmk11/blog
+edit_uri: edit/main/src/
+copyright: Copyright &copy; 2026 Maksudul Haque
+
+docs_dir: src
 
 theme:
   name: material
+  language: en
+  icon:
+    logo: fontawesome/solid/book
+  favicon: assets/favicon.png
   features:
+    - navigation.instant
+    - navigation.tracking
     - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - navigation.top
+    # - navigation.footer
+    - toc.follow
+    - toc.integrate
     - search.suggest
     - search.highlight
     - search.share
-    - navigation.indexes
-    - navigation.footer
+    - header.autohide
     - content.code.copy
     - content.code.annotate
-  icon:
-    logo: fontawesome/solid/book
+    - content.tooltips
+    - content.tabs.link
+    - announce.dismiss
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -32,30 +55,72 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
 
 plugins:
+  - search
+  - macros:
+      module_name: main
   - tags:
       tags_file: tags.md
-  - search
-  - macros
-  - social
+  - blog:
+      blog_dir: .
+      post_dir: blog/posts
+      archive: true
+      categories: false
+      tags: true
+      authors: true
+      authors_file: authors.yml
+      authors_profiles: false
+      pagination: true
+      pagination_per_page: 5
+      post_date_format: full
+      post_url_format: "{slug}"
+
+nav:
+  - Blog: index.md
+  - Tags: tags.md
+  - About: about.md
 
 markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 extra:
   analytics:

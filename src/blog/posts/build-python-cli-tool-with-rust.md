@@ -4,12 +4,14 @@ description: A simple example of how to build a Python CLI tool with Rust
 date: 2023-02-25
 type: post
 tags:
-    - rust
-    - python
-    - cli
-    - tutorial
+  - rust
+  - python
+  - cli
+  - tutorial
 hide:
   - navigation
+authors:
+  - maksudul
 ---
 
 # Build a Python CLI Tool with Rust <br><small>{{ page.meta.date.strftime('%B %d, %Y') }}</small>
@@ -18,6 +20,8 @@ hide:
 
 In this tutorial, we will build a simple Python CLI tool with Rust.
 The tool will search for a given string in the given directory and print the file names that contain the string.
+
+<!-- more -->
 
 ## Prerequisites
 

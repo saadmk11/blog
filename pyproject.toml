@@ -1,0 +1,13 @@
+[project]
+name = "blog"
+version = "1.0.0"
+description = "A blog site built with MkDocs"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-git-revision-date-localized-plugin>=1.5.1",
+    "mkdocs-macros-plugin>=1.5.0",
+    "mkdocs-material[imaging]>=9.7.1",
+    "mkdocs-minify-plugin>=0.8.0",
+]
