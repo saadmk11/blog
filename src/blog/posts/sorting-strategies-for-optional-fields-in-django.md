@@ -21,9 +21,9 @@ You're building an admin dashboard that displays users sorted by their most rece
 
 You sort by `last_login` in descending order, expecting to see users who just logged in at the top. Instead, every user who has never logged in appears first, pushing your active users (the ones you actually care about) off the first page.
 
-This happens because PostgreSQL (and several other databases) treats `NULL` as "larger than" any actual value when sorting in descending order. Users with no login history (`NULL`) sort before users who logged in seconds ago, which is the opposite of what you need.
-
 <!-- more -->
+
+This happens because PostgreSQL (and several other databases) treats `NULL` as "larger than" any actual value when sorting in descending order. Users with no login history (`NULL`) sort before users who logged in seconds ago, which is the opposite of what you need.
 
 Django's `F()` expressions with the `nulls_last` parameter give you precise control over this behavior.
 

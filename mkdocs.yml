@@ -28,7 +28,6 @@ theme:
     - navigation.top
     # - navigation.footer
     - toc.follow
-    - toc.integrate
     - search.suggest
     - search.highlight
     - search.share
@@ -79,6 +78,12 @@ plugins:
       pagination_per_page: 5
       post_date_format: full
       post_url_format: "{slug}"
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - tags
 
 nav:
   - Blog: index.md
@@ -138,3 +143,5 @@ extra:
       link: https://saadmk11.github.io
     - icon: fontawesome/brands/dev
       link: https://dev.to/saadmk11
+    - icon: fontawesome/solid/rss
+      link: feed_rss_created.xml
