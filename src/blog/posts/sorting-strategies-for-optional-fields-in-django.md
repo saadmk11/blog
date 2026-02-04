@@ -25,7 +25,7 @@ You sort by `last_login` in descending order, expecting to see users who just lo
 
 This happens because PostgreSQL (and several other databases) treats `NULL` as "larger than" any actual value when sorting in descending order. Users with no login history (`NULL`) sort before users who logged in seconds ago, which is the opposite of what you need.
 
-Django's `F()` expressions with the `nulls_last` parameter give you precise control over this behavior.
+Using Django's `F()` expressions with the `desc()` method's `nulls_last` argument gives you precise control over this behavior.
 
 !!! quote "PostgreSQL NULL Sorting Behavior"
 
@@ -33,9 +33,9 @@ Django's `F()` expressions with the `nulls_last` parameter give you precise cont
 
     \- [PostgreSQL Documentation: Sorting Rows (ORDER BY)](https://www.postgresql.org/docs/current/queries-order.html)
 
-## The Modern Solution: `F` Expressions with `nulls_last`
+## The Modern Solution: Query Expressions with `asc()` and `desc()`
 
-Django's `F()` expressions let you tap directly into your database's sorting engine. You can use the `nulls_last` and `nulls_first` parameters to explicitly control where `NULL` values appear in your results and Django handles all the database-specific details for you.
+Django's `F()` expressions and other query expressions (like `Coalesce` or `Value`) represent values or computations within your database. When used in `order_by()`, their `.asc()` and `.desc()` methods accept `nulls_last` and `nulls_first` arguments, allowing you to explicitly control where `NULL` values appear in your results. Django handles all the database-specific details for you.
 
 Let's work with `User` model, which includes a `last_login` field:
 
@@ -90,6 +90,12 @@ queryset = User.objects.order_by(F('last_login').asc(nulls_last=True))
 # 4. dave@example.com - Never logged in (NULL)
 ```
 
+This generates SQL that looks something like (in PostgreSQL):
+
+```sql
+SELECT * FROM accounts_user ORDER BY last_login ASC NULLS LAST;
+```
+
 ### When You Want NULLs First
 
 For some use cases like identifying users who need onboarding you might want never-logged-in users at the top:
@@ -106,7 +112,7 @@ The beauty of this approach is that it's efficient: you're delegating the work t
 
 ### Database Support and How Django Handles It
 
-The `nulls_last` and `nulls_first` parameters work across all Django-supported databases, but how Django implements them depends on backend features:
+The `nulls_last` and `nulls_first` arguments work across all Django-supported databases, but how Django implements them depends on backend features:
 
 **PostgreSQL and Oracle:** These databases support `NULLS FIRST/LAST` natively, so Django appends that modifier directly.
 
@@ -142,7 +148,7 @@ This expression-based ordering is exactly what enables the `asc()` and `desc()` 
 
 ## Understanding the Underlying Pattern: Boolean Sorting
 
-While Django's `F().asc()` and `F().desc()` expressions with `nulls_last` and `nulls_first` are the recommended approach, you might encounter another pattern in older Django code or when working with raw SQL. Understanding this pattern is also useful because it’s the same technique Django may use internally when a backend doesn’t support `NULLS FIRST/LAST` and the requested null placement conflicts with the backend’s default.
+While using `.asc()` or `.desc()` on `F()` expressions is the recommended modern approach, you might encounter an alternative pattern in older projects or raw SQL queries. This "manual" technique is worth understanding as it mirrors how Django emulates null-ordering on databases that lack native support for `NULLS FIRST/LAST` modifiers.
 
 The pattern relies on sorting by whether a field is null *before* sorting by the field value itself:
 
@@ -183,11 +189,9 @@ Numerically, 0s sort before 1s, placing users with login history before users wi
 
 ## Conclusion
 
-`NULL` values can create unexpected sort orders if you don't handle them deliberately. Django's `F().asc()` and `F().desc()` expressions with `nulls_last` and `nulls_first` give you precise control over where they appear on any database.
+Explicitly handling `NULL` values is essential for predictable query results. By using the `nulls_last` and `nulls_first` arguments on the `.asc()` and `.desc()` methods of query expressions, you gain precise control over sort order across any supported database.
 
-You write clear, explicit code (`F('last_login').desc(nulls_last=True)`) and Django handles all the database-specific details behind the scenes. Whether your database supports native `NULLS FIRST/LAST` syntax or not, your code stays the same.
-
-Whether you're sorting by timestamps, optional prices, or any other nullable field, this feature ensures your data appears in a logical order for your users.
+This approach keeps your code clean and portable. Whether your database engine supports native `NULLS FIRST/LAST` syntax or requires emulation, Django handles the implementation details, ensuring your data is always presented logically to your users.
 
 ## References
 
