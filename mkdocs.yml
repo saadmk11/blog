@@ -144,4 +144,4 @@ extra:
     - icon: fontawesome/brands/dev
       link: https://dev.to/saadmk11
     - icon: fontawesome/solid/rss
-      link: feed_rss_created.xml
+      link: /feed_rss_created.xml
